@@ -355,13 +355,11 @@ function initCanvas() {
 		}
 
 		function resizeHandler() {
-
-
 			//canvas dimensions
 			winWidth = window.innerWidth;
 			winHeight = window.innerHeight;
 
-            if (window.isMobile && cached_window_width == winWidth) {
+            if (window.isMobile && cached_window_width == $(window).width()) {
             	return;
 			}
 
@@ -380,7 +378,7 @@ function initCanvas() {
 					d: Math.random() * mp //density
 				})
 			}
-            cached_window_width = winWidth;
+            cached_window_width = $(window).width();
 		}
 
 		win.on('resize', resizeHandler);
