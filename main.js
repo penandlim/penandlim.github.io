@@ -4,6 +4,8 @@ jQuery(function() {
 
 	//console.log(isIE);
 
+	initIsMobile();
+
 	if (!isIE) {
 		initClouds();
 	} else {
