@@ -10,16 +10,15 @@ jQuery(function() {
 		jQuery('.cloud-holder').show();
 	}
 
-	initMobileNav();
+	// initMobileNav();
 
 	if (!isIE) {
 		initStarActive();
 	} else {
-		$('body.homepage .top-inforamtiom').css('backgroundImage', 'url(images/bg-stars.png)');
 		console.log($('body.homepage .top-inforamtiom'));
 	}
 
-	initCustomHover();
+	// initCustomHover();
 	// initLoadMore();
 	initSlickCarousel();
 	initParalax();
@@ -28,16 +27,16 @@ jQuery(function() {
 		initCanvas();
 	}
 
-	initStep();
-	initCustomPopup();
+	// initStep();
+	// initCustomPopup();
 	initTouchDeviceClass();
-	initCustomForms();
-	initAnchors();
+	// initCustomForms();
+	// initAnchors();
 });
 
 jQuery(window).on('load', function() {
-	initChangeColor();
-	initNavAddClass();
+	// initChangeColor();
+	// initNavAddClass();
 });
 
 // add classes on hover/touch
@@ -82,7 +81,6 @@ function initNavAddClass() {
 			scrollhandler();
 		}
 
-		win.on('scroll', scrollhandler);
 		win.on('resize orientationchange', resizeHanler);
 		resizeHanler();
 	});
@@ -116,24 +114,6 @@ function initCustomPopup() {
 	var page = jQuery('body');
 	var fixedClass = 'fixed-position';
 	var winTop = 0;
-
-	jQuery('body').customPopup({
-		activeClass: 'popup-visible',
-		overlayClass: 'overlay-active',
-		afterShow: function(self) {
-			if (!self.popup.hasClass('paralax-init') && !isTouchDevice) {
-				initParalaxImages(self.popup);
-			}
-			page.addClass(fixedClass);
-		},
-		beforeShow: function() {
-			winTop = win.scrollTop();
-		},
-		beforeHide:function() {
-			page.removeClass(fixedClass);
-			win.scrollTop(winTop);
-		}
-	});
 }
 
 function initParalaxImages(block) {
@@ -167,7 +147,6 @@ function initParalaxImages(block) {
 				koef = 300 / win.height();
 			}
 
-			holder.on('scroll', scrollHandler);
 			win.on('resize orientationchange', resizeHandler);
 			resizeHandler();
 		});
@@ -415,22 +394,13 @@ function initChangeColor() {
 		var flag = true;
 		var winTop;
 
-		function scrollHandler() {
-			winTop = win.scrollTop();
-
-            block.addClass(activeClass);
-		}
-
 		function resizeHandler() {
 			blockTop = win.scrollTop() > 0 ? block.offset().top - win.scrollTop() : block.offset().top;
 			blockHeight = block.innerHeight();
 			containerTop = container.offset().top;
 			containerHeight = container.innerHeight();
-
-			scrollHandler();
 		}
 
-		win.on('scroll', scrollHandler);
 		win.on('resize orientationchange', resizeHandler);
 		resizeHandler();
 	});
@@ -460,7 +430,6 @@ function initClouds() {
 	var mesh, geometry, material;
 
 	var mouseX = 0, mouseY = 0;
-	var start_time = Date.now();
 
 	var windowHalfX = window.innerWidth / 2;
 	var windowHalfY = window.innerHeight / 2;
@@ -496,13 +465,9 @@ function initClouds() {
 		camera.position.y += 300;
 		camera.rotation.y += 0.25;
 
-
 		scene = new THREE.Scene();
 
-
-		var fog = new THREE.Fog( 0x4584b4, - 100, 3000 );
-
-        geometry = new THREE.PlaneGeometry( 20000, 20000, 127, 127 );
+        geometry = new THREE.PlaneGeometry( 10000, 10000, 127, 127 );
         geometry.rotateX( - Math.PI / 2 );
 
         for ( var i = 0, l = geometry.vertices.length; i < l; i ++ ) {
@@ -510,7 +475,6 @@ function initClouds() {
             geometry.vertices[ i ].y = 35 * Math.sin( i / 2 );
 
         }
-
 
         material = new THREE.MeshBasicMaterial( { color: 0x000000 } );
         mesh = new THREE.Mesh( geometry, material );
@@ -525,13 +489,6 @@ function initClouds() {
 		window.addEventListener( 'resize', onWindowResize, false );
 		// window.scene = scene;
 		animate();
-	}
-
-	function onDocumentMouseMove( event ) {
-
-		mouseX = ( event.clientX - windowHalfX ) * 0.25;
-		mouseY = Math.min(( event.clientY - windowHalfY ) * 0.15, -12);
-
 	}
 
 	function onWindowResize( event ) {
@@ -560,7 +517,6 @@ function initClouds() {
         }
 
         mesh.geometry.verticesNeedUpdate = true;
-
         renderer.clear();
         renderer.render( scene, camera );
 	}
@@ -577,27 +533,10 @@ function initStarActive() {
 		var holderHeight;
 		var flag = true;
 
-		function scrollHandler() {
-			if (win.scrollTop() < holderHeight + holderTop) {
-				if (flag) {
-					page.addClass(activeClass);
-					flag = false;
-				}
-			} else {
-				if (!flag) {
-					page.removeClass(activeClass);
-					flag = true;
-				}
-			}
-		}
-
 		function resizeHandler() {
 			holderTop = holder.offset().top;
 			holderHeight = holder.innerHeight();
-			scrollHandler();
 		}
-
-		win.on('scroll', scrollHandler);
 		win.on('resize orientationchange', resizeHandler);
 		resizeHandler();
 	});
